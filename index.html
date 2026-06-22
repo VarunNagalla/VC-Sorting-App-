@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    <meta
+      name="description"
+      content="VC Image Sorting app finds the best expressions and strongest photos from a shoot."
+    />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' blob: data:; connect-src 'self'; font-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'; worker-src 'self' blob:"
+    />
+    <meta name="theme-color" content="#07090f" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="VC Image Sorting" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <title>VC Image Sorting app</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png" />
+    <link rel="stylesheet" href="styles.css?v=9" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 44 28" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="VC logo mark">
+            <defs>
+              <linearGradient id="bm1" x1="0" y1="0" x2="0.5" y2="1">
+                <stop offset="0%" stop-color="#5eead4"/>
+                <stop offset="100%" stop-color="#2dd4bf"/>
+              </linearGradient>
+              <linearGradient id="bm2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#c4b5fd"/>
+                <stop offset="100%" stop-color="#8b5cf6"/>
+              </linearGradient>
+            </defs>
+            <text x="0" y="22" font-family="'Segoe UI',Arial,sans-serif" font-weight="900" font-size="24" fill="url(#bm1)">V</text>
+            <text x="18" y="22" font-family="'Segoe UI',Arial,sans-serif" font-weight="900" font-size="24" fill="url(#bm2)">C</text>
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <strong>VC Image Sorting</strong>
+          <small>Expression-first culling</small>
+        </span>
+      </a>
+      <span class="pro-badge">PRO</span>
+      <div class="privacy-note"><span>&#9679;</span> Face analysis stays on your device</div>
+      <label class="folder-button" for="folderInput"><span>&#9635;</span> Add folder</label>
+      <label class="import-button" for="fileInput"><span>+</span> Add photos</label>
+      <input
+        id="fileInput"
+        type="file"
+        accept="image/jpeg,image/png,image/webp,image/gif,image/bmp,image/avif,image/heic,image/heif"
+        multiple
+        hidden
+      />
+      <input id="folderInput" type="file" accept="image/*" webkitdirectory directory multiple hidden />
+    </header>
+
+    <main>
+      <section class="setup-view" id="setupView">
+        <div class="hero-layout">
+          <div class="hero-copy">
+            <span class="eyebrow"><i></i> Expression-first photo culling</span>
+            <h1>Find the moment<br /><em>worth keeping.</em></h1>
+            <p>
+              Import a burst, wedding, portrait session, or candid shoot. The app checks eyes,
+              expressions, gaze, face sharpness, and group timing before it considers lighting.
+            </p>
+            <div class="hero-points">
+              <span><b>&#10003;</b> Open-eye detection</span>
+              <span><b>&#10003;</b> Candid-aware scoring</span>
+              <span><b>&#10003;</b> Private and local</span>
+            </div>
+          </div>
+
+          <div class="hero-showcase" aria-hidden="true">
+            <div class="showcase-glow"></div>
+            <div class="sample-photo sample-back">
+              <span class="sample-face"></span>
+            </div>
+            <div class="sample-photo sample-middle">
+              <span class="sample-face"></span>
+              <span class="sample-reject">Blink</span>
+            </div>
+            <div class="sample-photo sample-front">
+              <span class="sample-face"></span>
+              <span class="sample-best">&#10022; Best expression</span>
+              <div class="sample-score">
+                <span>Face score</span>
+                <strong>94</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="setup-card">
+          <div class="setup-card-heading">
+            <div>
+              <span class="eyebrow">Start a new selection</span>
+              <h2>What kind of moment are we choosing?</h2>
+            </div>
+            <span class="local-chip"><i></i> Local AI ready</span>
+          </div>
+          <div class="step-label"><span>1</span> Choose the selection goal</div>
+          <div class="purpose-grid" id="purposeGrid">
+            <button class="purpose-card active" data-purpose="memories">
+              <span class="purpose-icon coral">&#9829;</span>
+              <strong>Personal memories</strong>
+              <small>Natural, balanced keepers</small>
+              <i>&#10003;</i>
+            </button>
+            <button class="purpose-card" data-purpose="candid">
+              <span class="purpose-icon rose">&#9786;</span>
+              <strong>Candid moments</strong>
+              <small>Authentic laughter and interaction</small>
+              <i>&#10003;</i>
+            </button>
+            <button class="purpose-card" data-purpose="social">
+              <span class="purpose-icon violet">#</span>
+              <strong>Social media</strong>
+              <small>Expressive and feed-ready</small>
+              <i>&#10003;</i>
+            </button>
+            <button class="purpose-card" data-purpose="portfolio">
+              <span class="purpose-icon mint">&#9671;</span>
+              <strong>Portfolio</strong>
+              <small>Expression plus technical quality</small>
+              <i>&#10003;</i>
+            </button>
+            <button class="purpose-card" data-purpose="profile">
+              <span class="purpose-icon gold">&#9786;</span>
+              <strong>Profile photo</strong>
+              <small>Open eyes and camera gaze</small>
+              <i>&#10003;</i>
+            </button>
+            <button class="purpose-card" data-purpose="best">
+              <span class="purpose-icon dark">&#10022;</span>
+              <strong>Just pick the best</strong>
+              <small>Strongest moments overall</small>
+              <i>&#10003;</i>
+            </button>
+          </div>
+
+          <div class="step-divider"></div>
+          <div class="step-label second"><span>2</span> Add the photos you want compared</div>
+          <div class="drop-zone" id="dropZone">
+            <span class="upload-orb">&uarr;</span>
+            <strong>Choose a whole folder or drop it here</strong>
+            <small>Add the full burst or shoot so expressions can be compared properly.</small>
+            <div class="upload-actions">
+              <label class="choose-button primary-choice" for="folderInput">Choose folder</label>
+              <label class="choose-button secondary-choice" for="fileInput">Choose individual photos</label>
+            </div>
+            <small id="batchLimitText">JPEG, PNG, WebP and browser-supported formats. Up to 500 photos per batch on PC, 100 on iPad.</small>
+          </div>
+
+          <div class="model-note" id="modelNote">
+            <span class="model-pulse"></span>
+            <div>
+              <strong>Local expression AI</strong>
+              <small>Detects faces, blinks, gaze, smiles, candid moments, and group-photo issues.</small>
+            </div>
+          </div>
+          <div class="ipad-install" id="ipadInstall">
+            <span class="ipad-install-icon">&#8593;</span>
+            <div>
+              <strong>Install on iPad</strong>
+              <small>In Safari, tap Share and choose Add to Home Screen.</small>
+            </div>
+            <button type="button" id="installAppButton" class="install-app-button">Install</button>
+          </div>
+        </div>
+
+        <div class="trust-row">
+          <span><b>01</b><strong>Expression first</strong><small>Eyes and timing lead the decision</small></span>
+          <span><b>02</b><strong>Burst comparison</strong><small>The strongest human moment wins</small></span>
+          <span><b>03</b><strong>Lighting stays editable</strong><small>Great expressions are protected</small></span>
+        </div>
+      </section>
+
+      <section class="results-view hidden" id="resultsView">
+        <aside class="results-sidebar">
+          <div>
+            <span class="sidebar-label">Selection goal</span>
+            <select id="purposeSelect">
+              <option value="memories">Personal memories</option>
+              <option value="candid">Candid moments</option>
+              <option value="social">Social media</option>
+              <option value="portfolio">Portfolio</option>
+              <option value="profile">Profile photo</option>
+              <option value="best">Best overall</option>
+            </select>
+          </div>
+
+          <div class="score-summary">
+            <span class="sidebar-label">Your shoot</span>
+            <div><strong id="totalCount">0</strong><small>analyzed</small></div>
+            <div class="green"><strong id="pickCount">0</strong><small>recommended</small></div>
+            <div class="muted"><strong id="rejectCount">0</strong><small>filtered out</small></div>
+          </div>
+
+          <div class="sensitivity">
+            <div class="sidebar-label-row">
+              <span class="sidebar-label">How selective?</span>
+              <strong id="pickPercentLabel">25%</strong>
+            </div>
+            <input id="pickPercent" type="range" min="10" max="60" step="5" value="25" />
+            <div class="range-labels"><span>Only the best</span><span>More options</span></div>
+          </div>
+
+          <div class="legend">
+            <span class="sidebar-label">Expression AI</span>
+            <p><i class="dot green-dot"></i> Open eyes and natural timing</p>
+            <p><i class="dot yellow-dot"></i> Good face, lighting needs work</p>
+            <p><i class="dot red-dot"></i> Blink or awkward expression</p>
+            <p class="ai-status" id="faceAiStatus">Face model ready</p>
+          </div>
+        </aside>
+
+        <div class="results-main">
+          <div class="results-heading">
+            <div>
+              <span class="eyebrow"><i></i> Your expression-first shortlist</span>
+              <h2>Your best <span id="headingPickCount">0</span>.</h2>
+              <p id="resultsSummary">Expressions were ranked before lighting.</p>
+            </div>
+            <div class="results-actions">
+              <button class="secondary-button" id="startOver">Start over</button>
+              <button class="secondary-button export-button" id="saveFolder">
+                <span>&#9635;</span> Save to folder
+              </button>
+              <button class="primary-button export-button" id="downloadPicks">
+                <span>&darr;</span> Download ZIP
+              </button>
+            </div>
+          </div>
+
+          <div class="recommendation-card">
+            <span class="recommendation-icon">&#10022;</span>
+            <div>
+              <strong id="recommendationTitle">Expressions take priority</strong>
+              <p id="recommendationText">
+                Open eyes, natural timing, and face sharpness are ranked before exposure.
+              </p>
+            </div>
+          </div>
+
+          <div class="main-list-label">
+            <div>
+              <strong>Recommended photos</strong>
+              <span>Best facial moments are shown here in the main screen.</span>
+            </div>
+            <div class="score-key">
+              <span><i class="high"></i> Strong</span>
+              <span><i class="medium"></i> Review</span>
+              <span><i class="low"></i> Reject</span>
+            </div>
+          </div>
+
+          <div class="view-tabs" id="viewTabs">
+            <button class="active" data-view="picks">Recommended <span id="picksTabCount">0</span></button>
+            <button data-view="all">All ranked <span id="allTabCount">0</span></button>
+            <button data-view="rejected">Filtered out <span id="rejectedTabCount">0</span></button>
+          </div>
+
+          <div class="expression-filters" id="expressionFilters">
+            <button class="active" data-filter="all">All expressions</button>
+            <button data-filter="best">Best expressions</button>
+            <button data-filter="closed">Closed eyes</button>
+            <button data-filter="blink">Blink detected</button>
+            <button data-filter="needs-editing">Good expression, needs editing</button>
+            <button data-filter="bad">Bad expression</button>
+            <button data-filter="group">Group photo issues</button>
+          </div>
+
+          <div class="photo-grid" id="photoGrid"></div>
+          <div class="empty-filter hidden" id="emptyFilter">
+            <span>&#10022;</span>
+            <h3>Nothing in this view</h3>
+            <p>Try another expression filter or make the selection less strict.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>&copy; 2026 Varun Nagalla. All Rights Reserved.</span>
+      <span>Private, local expression analysis.</span>
+    </footer>
+
+    <div class="analysis-overlay hidden" id="analysisOverlay">
+      <div class="analysis-card">
+        <div class="scan-visual"><span></span><i></i></div>
+        <span class="eyebrow">Analyzing expressions locally</span>
+        <h2 id="analysisTitle">Checking eyes, faces, and timing...</h2>
+        <p id="analysisProgress">Expression first, then face sharpness, overall quality, and lighting.</p>
+        <div class="progress-track"><i id="progressBar"></i></div>
+        <small><span id="processedCount">0</span> of <span id="processingTotal">0</span> photos</small>
+      </div>
+    </div>
+
+    <dialog class="detail-modal" id="detailModal">
+      <button class="modal-close" id="closeDetail">&times;</button>
+      <div id="detailContent"></div>
+    </dialog>
+
+    <div class="toast" id="toast"></div>
+
+    <template id="photoTemplate">
+      <article class="photo-card">
+        <div class="image-wrap">
+          <img alt="" />
+          <span class="rank-badge"></span>
+          <span class="status-badge"></span>
+          <span class="face-score-badge"></span>
+          <button class="keep-button" title="Toggle pick">&#9825;</button>
+          <div class="image-overlay"><button>See expression details</button></div>
+        </div>
+        <div class="photo-info">
+          <div>
+            <strong class="photo-name"></strong>
+            <span class="photo-reason"></span>
+          </div>
+          <strong class="quality-score"></strong>
+        </div>
+        <div class="score-bar"><i></i></div>
+      </article>
+    </template>
+
+    <script src="app.js?v=10"></script>
+  </body>
+</html>
